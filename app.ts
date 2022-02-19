@@ -22,8 +22,18 @@ io.on('connection', (socket) => {
       usersMap.set(other, socket.id);
       usersMap.delete(socket.id);
       io.to(other).emit('otherJoined', socket.id);
+      socket.emit('youJoined', other);
     }
   } else usersMap.set(socket.id, '');
+
+  socket.on('finishedGame', (won: boolean) => {
+    console.log(won);
+  });
+
+  socket.on('newMove', (args: { otherUser: string; newSquares: any }) => {
+    const { otherUser, newSquares } = args;
+    socket.to(otherUser).emit('getMove', newSquares);
+  });
 
   console.log(usersMap);
 
