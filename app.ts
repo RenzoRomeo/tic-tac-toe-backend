@@ -16,8 +16,13 @@ io.on('connection', (socket) => {
   const other = socket.handshake.query.other as string;
 
   if (other !== '') {
-    if (!usersMap.has(other)) return socket.emit('error', "User doesn't exist");
-    usersMap.set(other, socket.id);
+    if (!usersMap.has(other)) socket.emit('error', "User doesn't exist");
+    else if (usersMap.get(other)) socket.emit('error', 'User already playing');
+    else {
+      usersMap.set(other, socket.id);
+      usersMap.delete(socket.id);
+      io.to(other).emit('otherJoined', socket.id);
+    }
   } else usersMap.set(socket.id, '');
 
   console.log(usersMap);
