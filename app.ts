@@ -26,8 +26,8 @@ io.on('connection', (socket) => {
     }
   } else usersMap.set(socket.id, '');
 
-  socket.on('finishedGame', (won: boolean) => {
-    console.log(won);
+  socket.on('finishedGame', (otherUser: string) => {
+    socket.to(otherUser).emit('');
   });
 
   socket.on('newMove', (args: { otherUser: string; newSquares: any }) => {
@@ -35,14 +35,19 @@ io.on('connection', (socket) => {
     socket.to(otherUser).emit('getMove', newSquares);
   });
 
+  socket.on('disconnected', (otherUser: string) => {
+    socket.to(otherUser).emit('reset');
+    usersMap.delete(otherUser);
+  });
+
   console.log(usersMap);
 
   socket.on('disconnect', () => {
     console.log(`User disconnected [${socket.id}]`);
+    const otherUser =
+      usersMap.get(socket.id) ||
+      [...usersMap.entries()].filter(([, v]) => v === socket.id)[0];
+    socket.to(otherUser).emit('reset');
     usersMap.delete(socket.id);
   });
-});
-
-io.on('join', (socket) => {
-  console.log();
 });
