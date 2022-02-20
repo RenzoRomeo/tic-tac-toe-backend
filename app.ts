@@ -2,8 +2,7 @@ import { Server } from 'socket.io';
 
 const usersMap = new Map<string, string>();
 
-/* const port = process.env.PORT ? parseInt(process.env.PORT) : 8000; */
-const port = 8000;
+const port = process.env.PORT ? parseInt(process.env.PORT) : 8000;
 const io = new Server(port, {
   cors: {
     origin: [
