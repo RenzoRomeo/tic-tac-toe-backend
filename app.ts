@@ -6,7 +6,11 @@ const usersMap = new Map<string, string>();
 const port = 8000;
 const io = new Server(port, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: [
+      'https://tic-tac-toe-gray-five.vercel.app/',
+      'https://tic-tac-toe-renzoromeo.vercel.app/',
+      'https://tic-tac-toe-git-main-renzoromeo.vercel.app/',
+    ],
   },
 });
 
