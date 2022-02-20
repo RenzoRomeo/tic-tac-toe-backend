@@ -6,9 +6,9 @@ const port = process.env.PORT ? parseInt(process.env.PORT) : 8000;
 const io = new Server(port, {
   cors: {
     origin: [
-      'https://tic-tac-toe-gray-five.vercel.app/',
-      'https://tic-tac-toe-renzoromeo.vercel.app/',
-      'https://tic-tac-toe-git-main-renzoromeo.vercel.app/',
+      'https://tic-tac-toe-gray-five.vercel.app',
+      'https://tic-tac-toe-renzoromeo.vercel.app',
+      'https://tic-tac-toe-git-main-renzoromeo.vercel.app',
     ],
   },
 });
