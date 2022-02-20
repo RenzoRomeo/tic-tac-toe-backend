@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc ./app.ts",
+    "build": "tsc ./app.ts --downLevelIteration",
     "start": "node ./app.js",
     "dev": "nodemon ./app.ts"
   },
