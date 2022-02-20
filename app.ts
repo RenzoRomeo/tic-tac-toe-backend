@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
   } else usersMap.set(socket.id, '');
 
   socket.on('finishedGame', (otherUser: string) => {
-    socket.to(otherUser).emit('');
+    socket.to(otherUser).emit('newGame');
   });
 
   socket.on('newMove', (args: { otherUser: string; newSquares: any }) => {
